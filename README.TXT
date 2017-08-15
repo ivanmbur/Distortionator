@@ -37,7 +37,7 @@ If you have problems or want to make modifications to the source code, you may c
 
 Observations
 
-Although the code is very specific, I must mention that the most powerful part of it is its method of finding best affine transformations. A detailed explanation of the mathematics behind the method can be downloaded by typing this hrcak.srce.hr/file/1425 into the search bar of an internet browser. In case of need, the reader is invited to take pieces of the code for modification and adding them to their work.
+Although the code is very specific, I must mention that the most powerful part of it is its method of finding best affine transformations. A detailed explanation of the mathematics behind the method can be found in H. Späth, Fitting affine and orthogonal transformations between two sets of points, Mathematical Communications 9(2004), 27-34. In case of need, the reader is invited to take pieces of the code for modification and adding them to their work.
 
 I would like to point out some details on the code:
 

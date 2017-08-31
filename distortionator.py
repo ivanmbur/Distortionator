@@ -9,6 +9,7 @@ text_name = ""
 
 #Import chaz cube
 chaz_cube = np.load(data_path)
+chaz_cube = chaz_cube[:,:,:2]
 
 #Build the reference sample
 sample_ref = np.average(chaz_cube, axis = 1)

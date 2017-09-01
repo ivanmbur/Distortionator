@@ -18,6 +18,7 @@ sample_ref = np.average(chaz_cube, axis = 1)
 def affine_fit(reference_raw, target_raw):
 	#We first make sure the sets are centered
 	center = np.average(reference_raw, axis = 0)
+	#reference contains the q vectors and target the p vectors in equation (1) of Spath's paper
 	reference = reference_raw - center
 	target = target_raw - center
 

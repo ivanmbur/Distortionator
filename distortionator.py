@@ -21,23 +21,25 @@ def affine_fit(reference_raw, target_raw):
 	reference = reference_raw - center
 	target = target_raw - center
 
-	#We add a 1 to the end of every vector in reference
+	#We add a 1 to the end of every vector in reference to produce the produce the vector ~q of equation (13) in Spath's paper
 	reference_extended = []
 	for vector in reference:
 		reference_extended.append(np.append(vector, [1]))
 	reference_extended = np.array(reference_extended)
 
-	#We calculate the Q matrix
+	#We calculate the ~Q matrix of equation (14) in Spath's paper. 
 	matrix_list = []
 	for vector in reference_extended:
+		#We need to get numpy to understand the vector as a matrix so that it transposes correctly.
 		vector_2D_transposed = vector[np.newaxis]
+		#vector_2D_transposed is the matrix that has vector as its only row (so it isn't a column vector). That's why the transposed operations are shifted with respect to that of equation (14) in Spath's paper. Doing it the other way would return a scalar.
 		matrix_list.append(np.dot(vector_2D_transposed.T, vector_2D_transposed))
 	Q = np.sum(np.array(matrix_list), axis = 0)
 
-	#We calculate the c matrix
+	#We calculate the ~C matrix of equation (16) in Spath's paper. One can see that the definition of its entries is just the matrix multiplication of the target lattice with the transpose of the extended reference lattice.
 	C = np.dot(target.T, reference_extended)
 
-	#Solve the linear system
+	#Solve the linear system and to form an array of the solutions ~a_j in (15) of Spath's paper
 	solution = [] 
 	for c in C:
 		solution.append(np.linalg.solve(Q, c))
@@ -46,7 +48,7 @@ def affine_fit(reference_raw, target_raw):
 	#return solution
 	return solution
 
-#Build a function that returns convergence, shear, rotation and displacement 
+#Build a function that returns convergence, shear, rotation and displacement from the solution of the previous method.
 def distortion_parameters(A):
     return np.append(np.linalg.solve(np.array([[-1, -1, 0, 0], [0, 0, -1, -1], [0, 0, -1, 1], [-1, 1, 0, 0]]), np.array([A[0,0]-1, A[0,1], A[1,0], A[1,1]-1])), [A[0,2], A[1,2]])
 
